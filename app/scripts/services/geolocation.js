@@ -12,11 +12,8 @@ angular.module('ngRoundApp')
     var deferred = $q.defer();
 
     return {
-
       getPosition: function() {
-
         if(navigator.geolocation) {
-
           navigator.geolocation.getCurrentPosition(function(position) {
             $rootScope.$apply(function() {
               deferred.resolve(position);
@@ -24,7 +21,7 @@ angular.module('ngRoundApp')
           }, function(error) { this._error(error); });
 
         } else {
-          var error = geolocationErrorMsgs.errors.locacation.unsupportedBrowser;
+          var error = geolocationErrorMsgs.unsupportedBrowser;
           this._rejectAndBroadcast(error);
         }
 
@@ -34,16 +31,15 @@ angular.module('ngRoundApp')
         var errMsg;
         switch (error.code) {
           case 1:
-            errMsg = geolocationErrorMsgs.errors.location.permissionDenied;
+            errMsg = geolocationErrorMsgs.permissionDenied;
             break;
           case 2:
-            errMsg = geolocationErrorMsgs.errors.location.positionUnavailable;
+            errMsg = geolocationErrorMsgs.positionUnavailable;
             break;
           case 3:
-            errMsg = geolocationErrorMsgs.errors.location.timeout;
+            errMsg = geolocationErrorMsgs.timeout;
             break;
         }
-
       },
       _rejectAndBroadcast: function(errMsg) {
         $rootScope.$broadcast('error', errMsg);
@@ -51,6 +47,5 @@ angular.module('ngRoundApp')
           deferred.reject(errMsg);
         });
       }
-
     };
   });

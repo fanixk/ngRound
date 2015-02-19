@@ -1,0 +1,26 @@
+'use strict';
+
+describe('Controller: MainCtrl', function () {
+
+  // load the controller's module
+  beforeEach(module('ngRoundApp'));
+
+  var MainCtrl,
+    scope;
+
+  // Initialize the controller and a mock scope
+  beforeEach(inject(function ($controller, $rootScope) {
+    scope = $rootScope.$new();
+    MainCtrl = $controller('MainCtrl', {
+      $scope: scope
+    });
+  }));
+
+  it('should inject twitterService on scope', function () {
+    expect(scope.twitterService).not.toBeNull();
+  });
+
+  it('should inject geolocation service on scope', function () {
+    expect(scope.geoLocation).not.toBeNull();
+  });
+});

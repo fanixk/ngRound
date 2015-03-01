@@ -3,3 +3,6 @@
   <p>Your longitude is {{ coords.long }}</p>
 </div>
 
+<div ng-repeat="tweet in tweets">
+  {{tweet.username}}: {{tweet.text}}
+</div>

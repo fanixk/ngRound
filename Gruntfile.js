@@ -71,22 +71,49 @@ module.exports = function (grunt) {
         hostname: 'localhost',
         livereload: 35729
       },
+      proxies:[{
+        context: '/tw/search',
+        host: 'api.twitter.com',
+        proto: "https",
+        proxy: "http://localhost:8087",
+        rewrite: {
+          'tw/search': "1.1/tweets/search.json"
+        },
+        oauth: "{{git-twitter-config}}"
+      }],
       livereload: {
         options: {
           open: true,
-          middleware: function (connect) {
-            return [
-              connect.static('.tmp'),
-              connect().use(
-                '/bower_components',
-                connect.static('./bower_components')
-              ),
-              connect().use(
-                '/app/styles',
-                connect.static('./app/styles')
-              ),
-              connect.static(appConfig.app)
-            ];
+          middleware: function (connect, options) {
+            var middlewares = [];
+
+            if (!Array.isArray(options.base)) {
+              options.base = [options.base];
+            }
+
+            // Setup the proxy
+
+            middlewares.push(require('grunt-nest-proxy/lib/proxy').request);
+
+            middlewares.push(connect.static('.tmp'));
+            middlewares.push(connect().use(
+              '/bower_components',
+              connect.static('./bower_components')
+            ));
+
+            middlewares.push(connect().use(
+              '/app/styles',
+              connect.static('./app/styles')
+            ));
+
+            middlewares.push(connect.static(appConfig.app));
+
+            // Serve static files
+            options.base.forEach(function(base) {
+              middlewares.push(connect.static(base));
+            });
+
+            return middlewares;
           }
         }
       },
@@ -400,6 +427,8 @@ module.exports = function (grunt) {
       'wiredep',
       'concurrent:server',
       'autoprefixer:server',
+      //'configureProxies:server', // added just before connect
+      'nest_proxy',
       'connect:livereload',
       'watch'
     ]);

@@ -8,7 +8,7 @@
  * Controller of the ngRoundApp
  */
 angular.module('ngRoundApp')
-  .controller('MainCtrl', function ($scope, twitterService, geoLocation) {
+  .controller('MainCtrl', function ($scope, twitterService, geoLocation, $http) {
 
     $scope.twitterService = twitterService;
 
@@ -19,5 +19,11 @@ angular.module('ngRoundApp')
         lat:data.coords.latitude,
         long:data.coords.longitude
       };
+    });
+
+    $http.get('/tw/search?q=&geocode=37.962564,23.730174,1km&result_type=mixed').success(function(data) {
+      console.log(data);
+    }).error(function(err) {
+        console.log(err);
     });
   });

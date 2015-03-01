@@ -77,7 +77,7 @@ module.exports = function (grunt) {
         proto: "https",
         proxy: "http://localhost:8087",
         rewrite: {
-          'tw/search': "1.1/tweets/search.json"
+          'tw/search': "1.1/search/tweets.json"
         },
         oauth: "{{git-twitter-config}}"
       }],

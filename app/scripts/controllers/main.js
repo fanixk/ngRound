@@ -8,22 +8,29 @@
  * Controller of the ngRoundApp
  */
 angular.module('ngRoundApp')
-  .controller('MainCtrl', function ($scope, twitterService, geoLocation, $http) {
-
-    $scope.twitterService = twitterService;
-
-    //twitterService.search({long: 37.962564, lat: 23.730174, radius: 1});
+  .controller('MainCtrl', function ($scope, twitterService, geoLocation) {
+    $scope.radius = 1;
 
     geoLocation.getPosition().then(function(data) {
       $scope.coords = {
-        lat:data.coords.latitude,
-        long:data.coords.longitude
+        long:data.coords.longitude,
+        lat:data.coords.latitude
       };
+
+      _doSearch();
     });
 
-    $http.get('/tw/search?q=&geocode=37.962564,23.730174,1km&result_type=mixed').success(function(data) {
-      console.log(data);
-    }).error(function(err) {
-        console.log(err);
-    });
+    function _doSearch() {
+      twitterService.search({
+        long: $scope.coords.long,
+        lat: $scope.coords.lat,
+        radius: $scope.radius
+      }).then(function(data) {
+        console.log(data);
+
+        data.statuses.forEach(function(tweet) {
+          console.log(tweet.user.screen_name + ': ' + tweet.text);
+        });
+      });
+    }
   });

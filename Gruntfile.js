@@ -74,12 +74,12 @@ module.exports = function (grunt) {
       proxies:[{
         context: '/tw/search',
         host: 'api.twitter.com',
-        proto: "https",
+        proto: 'https',
         port: 443,
         rewrite: {
-          'tw/search': "1.1/search/tweets.json"
+          'tw/search': '1.1/search/tweets.json'
         },
-        oauth: "{{git-twitter-config}}"
+        oauth: '{{git-twitter-config}}'
       }],
       livereload: {
         options: {

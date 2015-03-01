@@ -8,20 +8,24 @@
  * Service in the ngRoundApp.
  */
 angular.module('ngRoundApp')
-  .service('twitterService', function ($http) {
-    $http.defaults.useXDomain = true;
-
+  .service('twitterService', function ($http, $q) {
     var service = {
-      url: 'https://api.twitter.com/1.1/search/tweets.json?q=&geocode=',
+      url: 'tw/search?q=&geocode=',
 
       search: function(geocode) {
+        var deferred = $q.defer();
+
         geocode = geocode || {};
         this._setUrl(geocode);
 
         $http.get(this.url)
           .success(function(data) {
-            console.log(data);
+            deferred.resolve(data);
+          }).error(function(err) {
+            deferred.reject(err);
           });
+
+        return deferred.promise;
       },
 
       _setUrl: function(geocode) {

@@ -1,10 +1,10 @@
 * text=auto
 
-.bowerrc linguist-vendored=false
-.editorconfig linguist-vendored=false
-.jshintrc linguist-vendored=false
-test/.jshintrc linguist-vendored=false
-app/.htaccess linguist-vendored=false
-app/.buildignore linguist-vendored=false
-.yo-rc.json linguist-vendored=false
+.bowerrc linguist-vendored
+.editorconfig linguist-vendored
+.jshintrc linguist-vendored
+test/.jshintrc linguist-vendored
+app/.htaccess linguist-vendored
+app/.buildignore linguist-vendored
+.yo-rc.json linguist-vendored
 

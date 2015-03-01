@@ -1,3 +1,10 @@
 * text=auto
-.* linguist-documentation=false
+
+.bowerrc linguist-documentation=false
+.editorconfig linguist-documentation=false
+.jshintrc linguist-documentation=false
+test/.jshintrc linguist-documentation=false
+app/.htaccess linguist-documentation=false
+app/.buildignore linguist-documentation=false
+.yo-rc.json linguist-documentation=false
 

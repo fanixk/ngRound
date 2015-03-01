@@ -1,8 +1,21 @@
+<!--<div ng-repeat="tweet in tweets">-->
+  <!--{{tweet.username}}: {{tweet.tweetText}}-->
+<!--</div>-->
+
+<div class="map-canvas">
+  <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="map.options">
+    <ui-gmap-markers models="markers" coords="'self'" icon="'icon'" events="map.markersEvents">
+      <ui-gmap-window show="map.window.show" coords="map.window.model" options="map.window.options" closeclick="map.window.closeClick()">
+        <div>
+          <div>{{map.window.username}}</div>
+          <span>{{map.window.tweet}}</span>
+        </div>
+      </ui-gmap-window>
+    </ui-gmap-markers>
+  </ui-gmap-google-map>
+</div>
+
 <div class="jumbotron">
   <p>Your latitude is {{ coords.lat }}</p>
   <p>Your longitude is {{ coords.long }}</p>
-</div>
-
-<div ng-repeat="tweet in tweets">
-  {{tweet.username}}: {{tweet.text}}
 </div>

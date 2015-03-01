@@ -18,7 +18,7 @@ angular.module('ngRoundApp')
             $rootScope.$apply(function() {
               deferred.resolve(position);
             });
-          }, function(error) { this._error(error); });
+          }, this._error);
 
         } else {
           var error = geolocationErrorMsgs.unsupportedBrowser;

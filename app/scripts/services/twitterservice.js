@@ -11,10 +11,8 @@ angular.module('ngRoundApp')
   .service('twitterService', function ($http, $q) {
     var service = {
       baseUrl: '/tw/search?q=&geocode=',
-
       search: function(geocode) {
         var deferred = $q.defer();
-
         geocode = geocode || {};
         this._setUrl(geocode);
 
@@ -24,9 +22,12 @@ angular.module('ngRoundApp')
 
         return deferred.promise;
       },
-
       _setUrl: function(geocode) {
-        this.url = this.baseUrl + geocode.lat + ',' + geocode.long + ',' + geocode.radius + 'km&count=20';
+        this.url = this.baseUrl +
+          geocode.lat + ',' +
+          geocode.long + ',' +
+          geocode.radius + 'km&count='+
+          geocode.count;
       }
     };
 

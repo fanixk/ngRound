@@ -75,7 +75,7 @@ module.exports = function (grunt) {
         context: '/tw/search',
         host: 'api.twitter.com',
         proto: "https",
-        proxy: "http://localhost:8087",
+        port: 443,
         rewrite: {
           'tw/search': "1.1/search/tweets.json"
         },
@@ -92,7 +92,6 @@ module.exports = function (grunt) {
             }
 
             // Setup the proxy
-
             middlewares.push(require('grunt-nest-proxy/lib/proxy').request);
 
             middlewares.push(connect.static('.tmp'));
@@ -427,7 +426,7 @@ module.exports = function (grunt) {
       'wiredep',
       'concurrent:server',
       'autoprefixer:server',
-      //'configureProxies:server', // added just before connect
+      //'configureProxies:server',
       'nest_proxy',
       'connect:livereload',
       'watch'

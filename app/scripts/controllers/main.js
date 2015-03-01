@@ -21,7 +21,7 @@ angular.module('ngRoundApp')
       };
     });
 
-    $http.get('/tw/search/').success(function(data) {
+    $http.get('/tw/search?q=&geocode=37.962564,23.730174,1km&result_type=mixed').success(function(data) {
       console.log(data);
     }).error(function(err) {
         console.log(err);

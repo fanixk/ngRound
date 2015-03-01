@@ -19,11 +19,8 @@ angular.module('ngRoundApp')
         this._setUrl(geocode);
 
         $http.get(this.url)
-          .success(function(data) {
-            deferred.resolve(data);
-          }).error(function(err) {
-            deferred.reject(err);
-          });
+          .success(deferred.resolve)
+          .error(deferred.reject);
 
         return deferred.promise;
       },

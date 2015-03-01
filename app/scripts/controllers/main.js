@@ -25,18 +25,17 @@ angular.module('ngRoundApp')
         long: $scope.coords.long,
         lat: $scope.coords.lat,
         radius: $scope.radius
-      }).then(function(data) {
-        console.log(data);
-
-        $scope.tweets = data.statuses.map(function(tweet) {
-            return {
-              username: tweet.user.screen_name,
-              text: tweet.text
-            };
-        });
-      });
+      }).then(_buildTweets);
     }
 
+    function _buildTweets(data) {
+      $scope.tweets = data.statuses.map(function(tweet) {
+        return {
+          username: tweet.user.screen_name,
+          text: tweet.text
+        };
+      });
+    }
     //$http.get('/tw/search?q=%20&geocode=37.962564,23.730174,1km&count=20').success(function(data) {
     //  console.log(data);
     //}).error(function(err) {

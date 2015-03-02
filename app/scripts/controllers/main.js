@@ -8,10 +8,11 @@
  * Controller of the ngRoundApp
  */
 angular.module('ngRoundApp')
-  .controller('MainCtrl', function ($scope, twitterService, geoLocation, $q) {
+  .controller('MainCtrl', function ($scope, $rootScope, twitterService, geoLocation, $q) {
     $scope.radius = 3;
     $scope.tweets = [];
     $scope.markers = [];
+    $rootScope.loader = true;
 
     geoLocation.getPosition().then(function(data) {
       $scope.coords = {
@@ -40,6 +41,7 @@ angular.module('ngRoundApp')
     function _buildTweets(data) {
       $scope.tweets = data.statuses.map(function(tweet) {
         return {
+          name: tweet.user.name,
           username: tweet.user.screen_name,
           text: tweet.text,
           coordinates: tweet.coordinates.coordinates

@@ -8,21 +8,21 @@
  * Service in the ngRoundApp.
  */
 angular.module('ngRoundApp')
-  .factory('geoLocation', function ($q, $rootScope, geolocationErrorMsgs) {
+  .factory('geoLocation', function ($q, $rootScope, $window, geolocationErrorMsgs) {
     var deferred = $q.defer();
+    var service = {};
 
-    return {
+    service = {
       getPosition: function() {
-        if(navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
+        if($window.navigator.geolocation) {
+          $window.navigator.geolocation.getCurrentPosition(function(position) {
             $rootScope.$apply(function() {
               deferred.resolve(position);
             });
-          }, this._error);
-
+          }, service._error);
         } else {
-          var error = geolocationErrorMsgs.unsupportedBrowser;
-          this._rejectAndBroadcast(error);
+          var errorMsg = geolocationErrorMsgs.unsupportedBrowser;
+          service._rejectAndBroadcast(errorMsg);
         }
 
         return deferred.promise;
@@ -40,6 +40,7 @@ angular.module('ngRoundApp')
             errMsg = geolocationErrorMsgs.timeout;
             break;
         }
+        service._rejectAndBroadcast(errMsg);
       },
       _rejectAndBroadcast: function(errMsg) {
         $rootScope.$broadcast('error', errMsg);
@@ -48,4 +49,6 @@ angular.module('ngRoundApp')
         });
       }
     };
+
+    return service;
   });

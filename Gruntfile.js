@@ -79,7 +79,7 @@ module.exports = function (grunt) {
         rewrite: {
           'tw/search': '1.1/search/tweets.json'
         },
-        oauth: '{{git-twitter-config}}'
+        oauth: grunt.file.readJSON('twitter-api.json') //'{{git-twitter-config}}'
       }],
       livereload: {
         options: {

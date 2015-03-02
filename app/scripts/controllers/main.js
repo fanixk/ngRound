@@ -106,6 +106,31 @@ angular.module('ngRoundApp')
       };
     }
 
+    $scope.focusMarker = function(tweet) {
+      var markers = $scope.markers;
+
+      var selectedTweet;
+      //_.result(_.find)
+      markers.forEach(function(tw, i) {
+        if((tw.latitude === tweet.coordinates[1]) && (tw.longitude === tweet.coordinates[0]))
+          selectedTweet = tweet;
+      });
+
+      selectedTweet.longitude = selectedTweet.coordinates[0];
+      selectedTweet.latitude = selectedTweet.coordinates[1];
+
+      $scope.map.center = {
+        latitude: selectedTweet.latitude,
+        longitude: selectedTweet.longitude
+      };
+      $scope.map.window.model = selectedTweet;
+      $scope.map.window.username = selectedTweet.username;
+      $scope.map.window.tweet = selectedTweet.text;
+      $scope.map.window.show = true;
+
+      //TODO CHANGE TEXT TO TWEET EVERYWHERE
+      //so a click marker handler can be created
+    };
     //$http.get('/tw/search?q=%20&geocode=37.962564,23.730174,1km&count=20').success(function(data) {
     //  console.log(data);
     //}).error(function(err) {

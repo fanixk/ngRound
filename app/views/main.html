@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-4">
       <ul class="list-group">
-        <li ng-repeat="tweet in tweets" class="list-group-item" ng-click="focusMarker(tweet)">
+        <li ng-repeat="tweet in tweets" class="list-group-item" ng-click="focusMarker(tweet, $index)" ng-class="{'active' : selectedTweet == $index}">
           <div>{{tweet.name}} - <a href="http://twitter.com/@{{tweet.username}}">@{{tweet.username}}</a></div>
           <div>{{tweet.text}}</div>
         </li>

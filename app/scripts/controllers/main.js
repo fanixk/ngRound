@@ -89,10 +89,7 @@ angular.module('ngRoundApp')
         },
         markersEvents: {
           click: function(marker, eventName, model) {
-            $scope.map.window.model = model;
-            $scope.map.window.username = model.username;
-            $scope.map.window.tweet = model.tweet;
-            $scope.map.window.show = true;
+            _openWindow(model);
           }
         },
         window: {
@@ -106,34 +103,27 @@ angular.module('ngRoundApp')
       };
     }
 
-    $scope.focusMarker = function(tweet) {
+    $scope.focusMarker = function(tweet, index) {
       var markers = $scope.markers;
+      $scope.selectedTweet = index;
 
-      var selectedTweet;
-      //_.result(_.find)
-      markers.forEach(function(tw, i) {
-        if((tw.latitude === tweet.coordinates[1]) && (tw.longitude === tweet.coordinates[0]))
-          selectedTweet = tweet;
+      var selectedTweet = _.find(markers, function(tw) {
+        return (tw.latitude === tweet.coordinates[1]) && (tw.longitude === tweet.coordinates[0]);
       });
-
-      selectedTweet.longitude = selectedTweet.coordinates[0];
-      selectedTweet.latitude = selectedTweet.coordinates[1];
 
       $scope.map.center = {
         latitude: selectedTweet.latitude,
         longitude: selectedTweet.longitude
       };
-      $scope.map.window.model = selectedTweet;
-      $scope.map.window.username = selectedTweet.username;
-      $scope.map.window.tweet = selectedTweet.text;
-      $scope.map.window.show = true;
 
-      //TODO CHANGE TEXT TO TWEET EVERYWHERE
-      //so a click marker handler can be created
+      _openWindow(selectedTweet);
     };
-    //$http.get('/tw/search?q=%20&geocode=37.962564,23.730174,1km&count=20').success(function(data) {
-    //  console.log(data);
-    //}).error(function(err) {
-    //  console.log(err);
-    //});
+
+    function _openWindow(model) {
+      $scope.map.window.model = model;
+      $scope.map.window.username = model.username;
+      $scope.map.window.tweet = model.tweet;
+      $scope.map.window.show = true;
+    }
+
   });

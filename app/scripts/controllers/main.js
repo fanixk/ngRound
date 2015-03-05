@@ -8,8 +8,9 @@
  * Controller of the ngRoundApp
  */
 angular.module('ngRoundApp')
-  .controller('MainCtrl', function ($scope, $rootScope, twitterService, geoLocation, $q) {
-    $scope.radius = 3;
+  .controller('MainCtrl', function ($scope, $rootScope, twitterService, geoLocation, $q, $window) {
+    $rootScope.radius = $scope.radius = 3;
+    $rootScope.count = $scope.count = 100;
     $scope.tweets = [];
     $scope.markers = [];
     $rootScope.loader = true;
@@ -101,6 +102,28 @@ angular.module('ngRoundApp')
           options: {} // define when map is ready
         }
       };
+
+      $scope.circles = [
+        {
+          id: 1,
+          center: {
+            latitude: myLat,
+            longitude: myLong
+          },
+          radius: $scope.radius * 1000,
+          stroke: {
+            color: '#08B21F',
+            weight: 2,
+            opacity: 1
+          },
+          fill: {
+            color: '#08B21F',
+            opacity: 0.5
+          },
+          visible: true, // optional: defaults to true
+          control: {}
+        }
+      ];
     }
 
     $scope.focusMarker = function(tweet, index) {
@@ -117,6 +140,7 @@ angular.module('ngRoundApp')
       };
 
       _openWindow(selectedTweet);
+      $window.scrollTo(0,0);
     };
 
     function _openWindow(model) {
@@ -125,5 +149,19 @@ angular.module('ngRoundApp')
       $scope.map.window.tweet = model.tweet;
       $scope.map.window.show = true;
     }
+
+    $rootScope.$watch('radius', function(newValue, oldValue) {
+      if(newValue !== oldValue) {
+        $scope.radius = $rootScope.radius;
+        _doSearch().then(_buildMap);
+      }
+    });
+
+    $rootScope.$watch('count', function(newValue, oldValue) {
+      if(newValue !== oldValue) {
+        $scope.count = $rootScope.count;
+        _doSearch().then(_buildMap);
+      }
+    });
 
   });

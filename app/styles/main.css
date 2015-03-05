@@ -103,3 +103,12 @@ body {
   margin-top: -32px; /* -1 * image height / 2 */
   display: block;
 }
+
+.slider {
+  cursor: pointer;
+}
+
+.radius {
+  margin: 25px 1px 25px 4px;
+  width: 95%;
+}

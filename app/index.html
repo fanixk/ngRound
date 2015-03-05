@@ -13,6 +13,7 @@
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="bower_components/angular-slider/slider.css"/>
     <!-- endbuild -->
   </head>
   <body ng-app="ngRoundApp">
@@ -42,6 +43,22 @@
               <li class="active"><a href="#/">Home</a></li>
               <li><a ng-href="#/about">About</a></li>
               <li><a ng-href="#/">Contact</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown slider">
+                <a id="drop3" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="true">
+                  Settings
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
+                  <li role="presentation"><a role="menuitem" tabindex="-1">Radius: {{radius}}</a></li>
+                  <li role="presentation"><slider class="radius" floor="1" ceiling="100" step="1" precision="1" ng-model="radius" ng-model-options="{ debounce: {'default': 1000} }" ng-init="radius=1"></slider>
+                  </li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1">Count: {{count}}</a></li>
+                  <li role="presentation"><slider class="radius" floor="100" ceiling="1000" step="1" precision="1" ng-model="count" ng-model-options="{ debounce: {'default': 1000} }" ng-init="count=100"></slider>
+                  </li>
+                </ul>
+              </li>
             </ul>
           </div>
         </div>
@@ -86,6 +103,7 @@
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/lodash/dist/lodash.compat.js"></script>
     <script src="bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
+    <script src="bower_components/angular-slider/slider.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 

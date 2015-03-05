@@ -11,6 +11,7 @@
     <div class="col-md-8">
       <div class="map-canvas">
         <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="map.options">
+          <ui-gmap-circle ng-repeat="c in circles track by c.id" center="c.center" stroke="c.stroke" fill="c.fill" radius="c.radius" visible="c.visible" visible="c.visible" control="c.control"></ui-gmap-circle>
           <ui-gmap-markers models="markers" coords="'self'" icon="'icon'" events="map.markersEvents">
             <ui-gmap-window show="map.window.show" coords="map.window.model" options="map.window.options" closeclick="map.window.closeClick()">
               <div>
